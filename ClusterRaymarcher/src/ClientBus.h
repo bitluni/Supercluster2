@@ -1,7 +1,7 @@
 #pragma	once
 #include <stdint.h>
 #include <ch32v00x.h>
-#include "Bus.h"
+#include "bus.h"
 
 class ClientBus: public Bus
 {

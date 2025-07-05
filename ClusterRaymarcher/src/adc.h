@@ -1,3 +1,5 @@
+#include <ch32v00x.h>
+
 void adcInit()
 {
     ADC_InitTypeDef  ADC_InitStructure = {0};

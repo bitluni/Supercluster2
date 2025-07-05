@@ -1,0 +1,33 @@
+name: PlatformIO CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.platformio/.cache
+          key: ${{ runner.os }}-pio
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install PlatformIO Core
+        run: pip install --upgrade platformio
+
+      - name: Install CH32V platform
+        run: pio pkg install -g -p "https://github.com/Community-PIO-CH32V/platform-ch32v.git"
+
+      - name: Build CDCRenderer Firmware
+        run: cd CDCRenderer && pio run
+
+      - name: Build ClusterRaymarcher Firmware
+        run: cd ClusterRaymarcher && pio run
+
+      - name: Build ClusterRaymarcherBase Firmware
+        run: cd ClusterRaymarcherBase && pio run
